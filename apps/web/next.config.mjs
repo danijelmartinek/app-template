@@ -9,6 +9,7 @@ const nextConfig = withPayload(
   {
     typedRoutes: true,
     transpilePackages: ['@app/cms'],
+    turbopack: {},
     env: {
       PAYLOAD_CONFIG_PATH: path.resolve(dirname, '../../packages/cms/payload.config.ts')
     }
