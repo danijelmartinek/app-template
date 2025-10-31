@@ -1,0 +1,15 @@
+node_modules
+.pnpm-store
+.next
+out
+dist
+build
+.env*
+*.log
+.DS_Store
+payload-data
+
+# Turbo
+.cache
+turbo
+.turbo

@@ -1,0 +1,21 @@
+{
+  "extends": "@app/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["./components/*"],
+      "@/lib/*": ["./lib/*"],
+      "@app/ui": ["../../packages/ui/src"],
+      "@app/ui/*": ["../../packages/ui/src/*"],
+      "@app/cms": ["../../packages/cms"],
+      "@app/cms/*": ["../../packages/cms/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
+  "exclude": ["node_modules"]
+}

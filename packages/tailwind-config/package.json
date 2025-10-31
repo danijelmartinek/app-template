@@ -1,0 +1,15 @@
+{
+  "name": "@app/tailwind-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tailwind.config": {
+      "types": "./tailwind.config.ts",
+      "default": "./tailwind.config.ts"
+    }
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.0.0"
+  }
+}

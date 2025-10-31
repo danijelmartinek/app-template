@@ -1,0 +1,25 @@
+{
+  "name": "@app/cms",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./config": "./payload.config.ts",
+    "./collections": "./src/collections/index.ts",
+    "./next": "./src/next.ts",
+    "./payload": "./src/payload.ts",
+    "./types": "./src/types.ts"
+  },
+  "dependencies": {
+    "@payloadcms/db-sqlite": "^3.62.0",
+    "@payloadcms/next": "^3.62.0",
+    "@payloadcms/richtext-lexical": "^3.62.0",
+    "payload": "^3.62.0",
+    "sqlite3": "^5.1.7"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
