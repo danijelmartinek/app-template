@@ -4,7 +4,7 @@ This template comes configured with the bare minimum to get started on anything 
 
 ## Quick start
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+This template can be deployed directly from our Cloud hosting and it will set up everything you need—including a SQLite database stored on disk—for a local-first experience.
 
 ## Quick Start - local setup
 
@@ -17,7 +17,7 @@ After you click the `Deploy` button above, you'll want to have standalone copy o
 ### Development
 
 1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URI` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+2. `cd my-project && cp .env.example .env` to copy the example environment variables. By default the template stores data in a local SQLite file defined by the `DATABASE_URI`.
 
 3. `pnpm install && pnpm dev` to install dependencies and start the dev server
 4. open `http://localhost:3000` to open the app in your browser
@@ -26,13 +26,12 @@ That's it! Changes made in `./src` will be reflected in your app. Follow the on-
 
 #### Docker (Optional)
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+If you prefer to use Docker for local development, the provided docker-compose.yml file runs the app in a container and persists the SQLite database on your host file system.
 
 To do so, follow these steps:
 
-- Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+- Ensure your `.env` file sets `DATABASE_URI=file:./payload.db` (the default value).
+- Run `docker-compose up` to install dependencies and start the dev server (pass `-d` to run in the background).
 
 ## How it works
 
@@ -54,13 +53,13 @@ See the [Collections](https://payloadcms.com/docs/configuration/collections) doc
 
 ### Docker
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally without installing Node on your host.
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+1. Follow [steps 1 and 2 from above](#development); the docker-compose file will automatically use the `.env` file in your project root.
+2. Run `docker-compose up`.
+3. Follow [steps 4 and 5 from above](#development) to log in and create your first admin user.
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams. The SQLite database file will persist between runs in the project directory.
 
 ## Questions
 
