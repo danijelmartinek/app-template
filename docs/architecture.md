@@ -6,9 +6,9 @@ This document summarises the high-level architecture of the Turborepo workspace.
 
 ```text
 apps/
-  web/              # Next.js 14 application
-  cms/              # Payload CMS application
+  web/              # Next.js application with embedded Payload CMS routes
 packages/
+  cms/              # Shared Payload CMS config, route handlers, and utilities
   tailwind-config/  # Shared Tailwind CSS 4 preset used by applications and packages
   tsconfig/         # Shared TypeScript configuration presets
   ui/               # Shadcn-inspired component library
@@ -20,10 +20,10 @@ Supporting documentation lives inside the `docs/` directory to keep architectura
 
 The root `package.json` configures workspace scripts that defer to [Turbo](https://turbo.build) tasks:
 
-- `dev` runs all development servers in parallel.
+- `dev` runs the Next.js development server (which also serves the Payload admin/API).
 - `build` orchestrates builds across applications and packages, respecting dependency graphs.
 - `lint` executes static analysis in every workspace.
-- `start` starts production servers.
+- `start` starts the production server.
 - `clean` clears build artefacts.
 
 All apps/packages should expose the same task names to benefit from caching and orchestration.
@@ -48,14 +48,18 @@ This structure promotes reuse between the Next.js frontend and Payload CMS admin
 
 ## Headless CMS
 
-Payload CMS runs from the `apps/cms` workspace. Its configuration wires up SQLite for a zero-config developer experience.
+Payload CMS is defined in `packages/cms`. The package owns:
 
-The CMS exposes a REST/GraphQL API that can be consumed by other apps. Shared TypeScript types can be extracted into new packages under `packages/` as the project grows.
+- The core `payload.config.ts` configuration with SQLite defaults and shared routes (`/app`, `/app/api`, `/app/graphql`).
+- Route helpers used by the Next.js `app/` directory to expose REST and GraphQL handlers.
+- A cached helper that provides server components with access to the Payload API without additional HTTP hops.
+
+The Next.js app consumes these exports to render the admin UI directly from `/app` and to surface content without leaving the server runtime.
 
 ## Deployment Considerations
 
-- Next.js can be deployed to any platform that supports Node.js 18+ and the Next.js build output.
-- Payload CMS also targets Node.js 18+. SQLite is ideal for local development; production deployments can switch to Postgres or another supported database by updating environment configuration.
+- Next.js (with embedded Payload) targets Node.js 18+ and can deploy to any platform that supports the Next.js build output.
+- SQLite is ideal for local development; production deployments can switch to Postgres or another supported database by updating the adapter inside `packages/cms/payload.config.ts` and the relevant environment variables.
 
 ## Future Enhancements
 

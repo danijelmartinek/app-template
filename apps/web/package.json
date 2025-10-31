@@ -11,8 +11,9 @@
     "clean": "rimraf .next"
   },
   "dependencies": {
-    "@app/ui": "workspace:*",
+    "@app/cms": "workspace:*",
     "@app/tailwind-config": "workspace:*",
+    "@app/ui": "workspace:*",
     "@radix-ui/react-slot": "^1.2.3",
     "next": "^16.0.1",
     "react": "^19.0.0",

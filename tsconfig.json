@@ -2,9 +2,9 @@
   "files": [],
   "references": [
     { "path": "apps/web" },
-    { "path": "apps/cms" },
     { "path": "packages/ui" },
     { "path": "packages/tailwind-config" },
-    { "path": "packages/tsconfig" }
+    { "path": "packages/tsconfig" },
+    { "path": "packages/cms" }
   ]
 }

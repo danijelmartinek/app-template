@@ -1,29 +1,19 @@
-const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL ?? process.env.PAYLOAD_PUBLIC_SERVER_URL ?? 'http://localhost:3001';
+import { getPayloadClient } from '@app/cms/payload';
+import type { Page } from '@app/cms/types';
 
-type PayloadListResponse<T> = {
-  docs: T[];
-};
+export async function fetchPages(limit = 5): Promise<Page[]> {
+  const payload = await getPayloadClient();
 
-export type PagePayload = {
-  id: string;
-  title: string;
-  slug: string;
-  content?: unknown;
-};
-
-export async function fetchPages(limit = 5): Promise<PagePayload[]> {
-  const response = await fetch(`${CMS_URL}/api/pages?limit=${limit}`, {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    cache: 'no-store'
+  const { docs } = await payload.find<Page>({
+    collection: 'pages',
+    limit,
+    sort: '-updatedAt'
   });
 
-  if (!response.ok) {
-    throw new Error(`Failed to load pages from Payload CMS: ${response.status} ${response.statusText}`);
-  }
-
-  const data = (await response.json()) as PayloadListResponse<PagePayload>;
-
-  return data.docs;
+  return docs.map((doc) => ({
+    id: doc.id,
+    title: doc.title,
+    slug: doc.slug,
+    content: doc.content
+  }));
 }

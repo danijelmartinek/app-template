@@ -6,7 +6,9 @@
       "@/components/*": ["./components/*"],
       "@/lib/*": ["./lib/*"],
       "@app/ui": ["../../packages/ui/src"],
-      "@app/ui/*": ["../../packages/ui/src/*"]
+      "@app/ui/*": ["../../packages/ui/src/*"],
+      "@app/cms": ["../../packages/cms"],
+      "@app/cms/*": ["../../packages/cms/*"]
     },
     "plugins": [
       {
