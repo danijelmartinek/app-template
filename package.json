@@ -2,7 +2,7 @@
   "name": "app-template",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.20.0",
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build",
@@ -11,7 +11,7 @@
     "clean": "turbo run clean"
   },
   "devDependencies": {
-    "turbo": "^2.0.6"
+    "turbo": "^2.5.8"
   },
   "workspaces": [
     "apps/*",
