@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { sqliteAdapter } from '@payloadcms/db-sqlite';
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { buildConfig } from 'payload';
 
 import { Pages } from './src/collections/Pages';
@@ -10,6 +11,7 @@ import { Users } from './src/collections/Users';
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default buildConfig({
+  editor: lexicalEditor(),
   admin: {
     user: Users.slug
   },

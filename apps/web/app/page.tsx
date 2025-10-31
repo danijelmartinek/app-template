@@ -2,7 +2,11 @@ import Link from 'next/link';
 
 import { Button } from '@app/ui';
 
-export default function HomePage() {
+import { fetchPages } from '@/lib/payload';
+
+export default async function HomePage() {
+  const pages = await fetchPages();
+
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center gap-10 p-8 text-center">
       <section className="space-y-4">
@@ -25,6 +29,26 @@ export default function HomePage() {
           </Link>
         </Button>
       </div>
+      <section className="w-full space-y-4 rounded-lg border border-border bg-card p-6 text-left shadow-sm">
+        <header>
+          <h2 className="text-2xl font-semibold">Latest pages</h2>
+          <p className="text-sm text-muted-foreground">
+            Content is sourced directly from your Payload CMS instance.
+          </p>
+        </header>
+        <ul className="space-y-2">
+          {pages.length === 0 ? (
+            <li className="text-sm text-muted-foreground">Create your first page in Payload to see it listed here.</li>
+          ) : (
+            pages.map((page) => (
+              <li key={page.id} className="rounded-md border border-border bg-background px-4 py-3">
+                <p className="text-sm uppercase tracking-wide text-muted-foreground">Slug: {page.slug}</p>
+                <p className="text-lg font-medium">{page.title}</p>
+              </li>
+            ))
+          )}
+        </ul>
+      </section>
     </main>
   );
 }
