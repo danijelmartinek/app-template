@@ -1,0 +1,11 @@
+{
+  "extends": "@app/tsconfig/base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "outDir": "./dist",
+    "declaration": true,
+    "emitDeclarationOnly": true
+  },
+  "include": ["tailwind.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}
