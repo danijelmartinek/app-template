@@ -42,6 +42,11 @@ next-env.d.ts
 
 /media
 
+# SQLite databases
+/payload.db
+*.sqlite
+*.sqlite3
+
 # Playwright
 node_modules/
 /test-results/
